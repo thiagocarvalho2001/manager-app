@@ -5,10 +5,10 @@
                 {{ __('My Transactions') }}
             </h2>
         </div>
-    </x-slot>>
+    </x-slot>
 
     <style>
-        /*  Align the table    */
+        /* Align the table    */
         table.custom-table th.align-center,
         table.custom-table td.align-center {
             text-align: center;
@@ -21,7 +21,34 @@
     </style>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+            <div class="bg-bll dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <form method="GET" action="{{ route('transactions.index') }}" class="flex items-center space-x-4">
+                        <div>
+                            <label for="year" class="block text-sm font-medium">Year:</label>
+                            <select name="year" id="year" onchange="this.form.submit()"
+                                class="bg-gray-700 border border-gray-600 rounded-md py-2 px-3">
+                                @for ($y = 2020; $y <= date('Y'); $y++)
+                                    <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>{{ $y }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div>
+                            <label for="month" class="block text-sm font-medium">Mês:</label>
+                            <select name="month" id="month" onchange="this.form.submit()"
+                                class="bg-gray-700 border border-gray-600 rounded-md py-2 px-3">
+                                @foreach (range(1, 12) as $m)
+                                    <option value="{{ $m }}" {{ $selectedMonth == $m ? 'selected' : '' }}>
+                                        {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
@@ -92,30 +119,3 @@
         </div>
     </div>
 </x-app-layout>
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-6">
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900 dark:text-gray-100">
-            <form method="GET" action="{{ route('transactions.index') }}" class="flex items-center space-x-4">
-                <div>
-                    <label for="year" class="block text-sm font-medium">Year:</label>
-                    <select name="year" id="year" onchange="this.form.submit()"
-                        class="bg-gray-700 border border-gray-600 rounded-md py-2 px-3">
-                        @for ($y = 2020; $y <= date('Y'); $y++)
-                            <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>{{ $y }}</option>
-                        @endfor
-                    </select>
-                </div>
-                <div>
-                    <label for="month" class="block text-sm font-medium">Mês:</label>
-                    <select name="month" id="month" onchange="this.form.submit()"
-                        class="bg-gray-700 border border-gray-600 rounded-md py-2 px-3">
-                        @foreach (range(1, 12) as $m)
-                            <option value="{{ $m }}" {{ $selectedMonth == $m ? 'selected' : '' }}>
-                                {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

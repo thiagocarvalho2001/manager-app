@@ -133,7 +133,7 @@
                         <!-- Register button -->
                         <div class="mb-4">
                             <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105" style="background-color: var(--color-primary);">
-                                Registrar
+                                Register
                             </button>
                         </div>
                     </form>
